@@ -68,6 +68,17 @@ Application backend was made with Python, using the Flask framework, which helpe
 For deployment we made a project on Render. This allowed us to deploy our project straight from the github repository.
 
 ### Project Architecture
+
+### Organization
+#### Communication
+All communication within our team was conducted via a Discord server, except for the communication with the professor, which was conducted via MS Teams. We also conducted all group meetings and all remote work via the Discord server, where we helped each other with the screen sharing function.
+#### Management and division of labor
+For project managment we chose the SCRUM method, which is based on working in sprints. During the development we had 4 1-week long sprints. The project thus lasted from **07.05.2025 to 04.06.2025**. Before starting a new sprint we created new tasks, which we had to do in the next sprint.
+For task assignment and keeping track we used Jira. We used a kanban board with backlog to keep track of our work.    
+
+### Testing
+We took care of testing by writing unit tests on the fly.
+
 ---
 
 ## 🧠 Tech Stack
