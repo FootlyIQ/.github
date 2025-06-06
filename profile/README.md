@@ -77,7 +77,7 @@ The application follows a modular and scalable architecture with clearly separat
 
 - **Microservices (Node.js + Express):**  
   Two microservices are implemented in **Node.js** using **Express**:
-  - **Matches Service:** Communicates with the external **Football API** to fetch real-time match data.
+  - **Matches Service:** Communicates with the external **football-data.org API** to fetch real-time match data.
   - **Odds Service:** Interfaces with the **Odds API** to retrieve betting odds.
 
 - **Local Proxy Service (Python):**  
