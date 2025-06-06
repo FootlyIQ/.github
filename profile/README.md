@@ -24,6 +24,7 @@ FootlyIQ is a full-stack web application built by our team as a part of our fina
     - [Data Architecture](#data-architecture)
     - [Testing](#testing)
     - [ML pipeline](#ml-pipeline)
+    - [Code Review](#code-review)
 3. [User Walkthrough](#3-user-walkthrough)
     - [User Manual](#user-manual)
     - [Activity Diagram for use of fantasy section](#activity-diagram-for-use-of-fantasy-section)
@@ -133,6 +134,14 @@ To offer users intelligent stats and visualizations we used pipeline with these 
 - Given the type of data we chose this approach rather than deploying our ML models
 
 <img src="https://github.com/user-attachments/assets/1569b735-f238-4f58-8d80-8609ee880c124" alt="ML pipeline" width="600"/>
+
+### Code Review
+For code optimization and code review we used SonarQube. This way we were able to review our code based on:    
+- Maintainability
+- Reliability
+- Security
+
+All of these got an A score.
 
 ---
 
