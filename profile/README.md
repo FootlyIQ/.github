@@ -23,19 +23,16 @@ FootlyIQ is a full-stack web application built by our team as a part of our fina
     - [Organization](#organization)
     - [Data Architecture](#data-architecture)
     - [Testing](#testing)
-    - [GitHub Actions](#github-actions)
-    - [Optimization](#optimization)
-    - [Uporabniške zgodbe](#uporabniške-zgodbe)
-3. [Navodila za namestitev lokalno](#3-navodila-za-namestitev-lokalno)
-    - [Testno lokalno okolje](#testno-lokalno-okolje)
-4. [User Walkthrough](#4-user-walkthrough)
+    - [ML pipeline](#ml-pipeline)
+3. [User Walkthrough](#4-user-walkthrough)
     - [User Manual](#user-manual)
-    - [Final Look](#final-look)
-5. [Presentation](#5-presentation)
+4. [Presentation](#5-presentation)
 
 ## 1. Project Intro
 ### Detailed Project Description
 FootlyIQ is an intelligent football analytics web platform that combines live and historic match data, fantasy football, advanced visualizations, and machine learning insights. Users can explore detailed statistics like pass clustering, threat trends, and player performance directly from interactive dashboards. The app also includes a fantasy football section, where users can build and track teams based on real-world data. For informational purposes, FootlyIQ also provides betting insights with live odds. The platform is fully full-stack — with a React frontend, Flask backend, two Express.js microservices and a separate proxy.
+
+---
 
 ## 2. Documentation
 ### Features
@@ -68,42 +65,68 @@ Application backend was made with Python, using the Flask framework, which helpe
 For deployment we made a project on Render. This allowed us to deploy our project straight from the github repository.
 
 ### Project Architecture
+The application follows a modular and scalable architecture with clearly separated concerns between the frontend, backend, and external services:
+
+- **Frontend (Client Side):**  
+  The client interface is built using **React**, providing a dynamic and responsive user experience. It communicates with the backend through HTTP requests (primarily RESTful APIs).
+
+- **Backend (Flask API):**  
+  The backend is developed using **Flask (Python)** and serves as the central hub that handles requests from the frontend. It orchestrates data flow between the client, external services, and internal storage systems.
+
+- **Microservices (Node.js + Express):**  
+  Two microservices are implemented in **Node.js** using **Express**:
+  - **Matches Service:** Communicates with the external **Football API** to fetch real-time match data.
+  - **Odds Service:** Interfaces with the **Odds API** to retrieve betting odds.
+
+- **Local Proxy Service (Python):**  
+  A lightweight local proxy written in Python connects to the **Fantasy Premier League (FPL) API**. This service preprocesses or aggregates FPL data and serves it to the Flask backend when needed.
+
+- **Database (Firebase Firestore):**  
+  The application stores structured, real-time data using **Google Firebase Firestore**, which supports flexible, scalable NoSQL storage.
+
+- **Data Lake (AWS S3):**  
+  For unstructured or large datasets (e.g., parquet files containing data gained from machine learning), the system uses **Amazon S3** as a data lake. Retrieval operations are managed using the **boto3** library in Python.
 
 ### Organization
 #### Communication
 All communication within our team was conducted via a Discord server, except for the communication with the professor, which was conducted via MS Teams. We also conducted all group meetings and all remote work via the Discord server, where we helped each other with the screen sharing function.
 #### Management and division of labor
 For project managment we chose the SCRUM method, which is based on working in sprints. During the development we had 4 1-week long sprints. The project thus lasted from **07.05.2025 to 04.06.2025**. Before starting a new sprint we created new tasks, which we had to do in the next sprint.
-For task assignment and keeping track we used Jira. We used a kanban board with backlog to keep track of our work.    
+For task assignment and keeping track we used Jira. We used a kanban board with backlog to keep track of our work.  
+
+### Data architecture
+In the **Data Lake** files are organized by the medallion architecture principles. Therefore datasets used for machine learning **and** datasets containing data from ML used in the app are organized into 3 zones:
+- **Bronze** containing raw datasets like stories.parquet
+- **Silver** containing filtred/reduced datasets primarily used for machine learning purposes like passes_crosses.parquet
+- **Gold** containing data ready for ad-hoc analyisi in Flask BE to be displayed to the user like xG_done_filtered.parquet
+  
 
 ### Testing
-We took care of testing by writing unit tests on the fly.
+We took care of testing by writing unit tests on the fly. A workflow was also built, by using github actions, but we rather ran tests in the terminal of our project.    
+We ensured proper testing by continuously writing unit tests throughout the development process. Tests were written for the following entities:    
+- Matches
+- Teams
+- Players
+- Match Stats
+
+Unit tests were also written for all relevant utility functions and service integrations, including:
+- API request handlers for matches, team squads, and statistics
+- Firestore database interactions
+- External service communication (e.g., FPL and microservices)
+
+### ML pipeline
+To offer users intelligent stats and visualizations we used pipeline with these steps:
+- We gained our **datasets** in parquet or csv format
+- For **machine learning** we used Jupyter Lab (locally) and Google Colab
+- After successful machine learning we updated our datasets with columns derived from our **results gained**
+- These final dataframes were then uploaded to our **S3 bucket** in parquet format
+- For analysis and visualizations on client side these dataframes were fetched from the data lake via **boto3** library and processed with **pandas** library
+- Given the type of data we chose this approach rather than deploying our ML models
 
 ---
 
-## 🧠 Tech Stack
-
-### Frontend
-- **React + Vite**
-- **Tailwind CSS** for responsive UI
-- **React Router** for SPA navigation
-- **Dark/light mode** toggle
-- Hosted on **Render**
-
-### Backend
-- **Flask** REST API
-- **DuckDB** for in-place SQL over S3-hosted Parquet files
-- **Pandas** for ad-hoc ML analytics
-- **boto3** to fetch data from **AWS S3**
-- **Deployed on Render backend service**
-
-### Storage & Data
-- **AWS S3**: all analytics and raw data stored as `.parquet`
-- **MongoDB**: semi-structured football data (teams, players, predictions, fantasy teams)
-- **Firebase**: authentication and secure user data handling
-
----
-
-## 📂 Project Structure (Backend)
+## 3. User Walkthrough
+### User Manual
+For a complete tour of our app and tips on how to use it please refer to our User Manual accessible here:
 
 
