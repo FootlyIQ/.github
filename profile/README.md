@@ -24,9 +24,9 @@ FootlyIQ is a full-stack web application built by our team as a part of our fina
     - [Data Architecture](#data-architecture)
     - [Testing](#testing)
     - [ML pipeline](#ml-pipeline)
-3. [User Walkthrough](#4-user-walkthrough)
+3. [User Walkthrough](#3-user-walkthrough)
     - [User Manual](#user-manual)
-4. [Presentation](#5-presentation)
+4. [Presentation](#4-presentation)
 
 ## 1. Project Intro
 ### Detailed Project Description
@@ -96,12 +96,15 @@ All communication within our team was conducted via a Discord server, except for
 For project managment we chose the SCRUM method, which is based on working in sprints. During the development we had 4 1-week long sprints. The project thus lasted from **07.05.2025 to 04.06.2025**. Before starting a new sprint we created new tasks, which we had to do in the next sprint.
 For task assignment and keeping track we used Jira. We used a kanban board with backlog to keep track of our work.  
 
+<img src="https://github.com/user-attachments/assets/e64cbca9-df43-40e1-b4d1-e961f3b14128" alt="Sprint board" width="600"/>
+
 ### Data architecture
 In the **Data Lake** files are organized by the medallion architecture principles. Therefore datasets used for machine learning **and** datasets containing data from ML used in the app are organized into 3 zones:
 - **Bronze** containing raw datasets like stories.parquet
 - **Silver** containing filtred/reduced datasets primarily used for machine learning purposes like passes_crosses.parquet
 - **Gold** containing data ready for ad-hoc analyisi in Flask BE to be displayed to the user like xG_done_filtered.parquet
-  
+
+<img src="https://github.com/user-attachments/assets/776ade9f-7861-4fbb-aa09-c04ea14e2f88" alt="Data lake architecture" width="600"/>
 
 ### Testing
 We took care of testing by writing unit tests on the fly. A workflow was also built, by using github actions, but we rather ran tests in the terminal of our project.    
@@ -116,6 +119,9 @@ Unit tests were also written for all relevant utility functions and service inte
 - Firestore database interactions
 - External service communication (e.g., FPL and microservices)
 
+<img src="https://github.com/user-attachments/assets/f2addc47-9854-426f-98c4-e605971f6251" alt="Unit tests" width="600"/>
+
+
 ### ML pipeline
 To offer users intelligent stats and visualizations we used pipeline with these steps:
 - We gained our **datasets** in parquet or csv format
@@ -124,6 +130,8 @@ To offer users intelligent stats and visualizations we used pipeline with these 
 - These final dataframes were then uploaded to our **S3 bucket** in parquet format
 - For analysis and visualizations on client side these dataframes were fetched from the data lake via **boto3** library and processed with **pandas** library
 - Given the type of data we chose this approach rather than deploying our ML models
+
+<img src="https://github.com/user-attachments/assets/1569b735-f238-4f58-8d80-8609ee880c124" alt="ML pipeline" width="600"/>
 
 ---
 
