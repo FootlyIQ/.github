@@ -66,30 +66,82 @@ Application backend was made with Python, using the Flask framework, which helpe
 #### Deployment
 For deployment we made a project on Render. This allowed us to deploy our project straight from the github repository.
 
-### Project Architecture
-The application follows a modular and scalable architecture with clearly separated concerns between the frontend, backend, and external services:
+# Project Architecture
 
-- **Frontend (Client Side):**  
-  The client interface is built using **React**, providing a dynamic and responsive user experience. It communicates with the backend through HTTP requests (primarily RESTful APIs).
+The application follows a modular and scalable architecture with distinct separation of concerns across the frontend, backend, and external services:
 
-- **Backend (Flask API):**  
-  The backend is developed using **Flask (Python)** and serves as the central hub that handles requests from the frontend. It orchestrates data flow between the client, external services, and internal storage systems.
+- ## Frontend (Client Side)
+  - Built using **React** to deliver a dynamic and responsive user experience.
+  - Communicates with the backend via HTTP requests, primarily through RESTful APIs.
 
-- **Microservices (Node.js + Express):**  
-  Two microservices are implemented in **Node.js** using **Express**:
-  - **Matches Service:** Communicates with the external **football-data.org API** to fetch real-time match data.
-  - **Odds Service:** Interfaces with the **Odds API** to retrieve betting odds.
+- ## Backend (Flask API)
+  - Developed with **Flask (Python)**, acting as the central hub for handling frontend requests.
+  - Manages data flow between the client, external services, and internal storage systems.
 
-- **Local Proxy Service (Python):**  
-  A lightweight local proxy written in Python connects to the **Fantasy Premier League (FPL) API**. This service preprocesses or aggregates FPL data and serves it to the Flask backend when needed.
+- ## Microservices (Node.js + Express)
+  - Two microservices implemented in **Node.js** using **Express**:
+    - **Matches Service**: Fetches real-time match data from the **football-data.org API**.
+    - **Odds Service**: Retrieves betting odds from the **Odds API**.
 
-- **Database (Firebase Firestore):**  
-  The application stores structured, real-time data using **Google Firebase Firestore**, which supports flexible, scalable NoSQL storage.
+- ## Home Server Proxy Service (Python)
+  - A lightweight local proxy running 24/7 on a home server, written in **Python**.
+  - Connects to the **Fantasy Premier League (FPL) API**, preprocesses or aggregates FPL data, and serves it to the Flask backend as needed.
 
-- **Data Lake (AWS S3):**  
-  For unstructured or large datasets (e.g., parquet files containing data gained from machine learning), the system uses **Amazon S3** as a data lake. Retrieval operations are managed using the **boto3** library in Python.
+- ## Firebase Firestore Database Structure
+  The application leverages **Google Firebase Firestore**, a scalable NoSQL database, for storing structured, real-time data.
 
-<img src="https://github.com/user-attachments/assets/55752ad7-95ca-4b55-89d5-f1be49cb75c4" alt="Project architecture" width="600"/>
+  - ### Collections
+
+    - #### `match_vote_counts`
+      - **Purpose**: Stores aggregated vote counts for matches.
+      - **Fields**:
+        - `away`: Number of votes for the away team (e.g., 1).
+        - `draw`: Number of votes for a draw (e.g., 0).
+        - `home`: Number of votes for the home team (e.g., 3).
+      - **Example Document ID**: "524120".
+
+    - #### `match_votes`
+      - **Purpose**: Stores individual votes for matches.
+      - **Fields**:
+        - `matchId`: String identifier for the match.
+        - `timestamp`: Timestamp of the vote.
+        - `user_id`: String identifier for the user.
+        - `vote`: The vote value (e.g., "1").
+
+    - #### `user_favorites`
+      - **Purpose**: Stores user-specific favorite data, such as favorite clubs and matches.
+      - **Nested Structure**:
+        - `clubs`:
+          - `id`: Club identifier.
+          - `crest`: URL to the club's crest image.
+          - `name`: Club name.
+          - `addedAt`: Timestamp of when the club was added.
+        - `matches`:
+          - `awayCrest`: URL to the away team's crest image.
+          - `awayTeam`: Name of the away team.
+          - `competition`: Competition name.
+          - `addedAt`: Timestamp of when the match was added.
+
+    - #### `users`
+      - **Purpose**: Stores user data.
+      - **Fields**:
+        - `createdAt`: Timestamp of user creation.
+        - `email`: User's email address.
+        - `name`: User's name.
+        - `role`: User's role (e.g., "user").
+
+    - #### `votes`
+      - **Purpose**: Stores users' voting data.
+      - **Fields**:
+        - `timestamp`: Timestamp of user's vote.
+        - `user_id`: User's email address.
+        - `vote`: User's vote (1, 2, or X).
+
+- ## Data Lake (AWS S3)
+  - Used for storing unstructured or large datasets (e.g., parquet files from machine learning processes).
+  - Data retrieval is managed using the **boto3** library in Python.
+
+![Project Architecture](https://github.com/user-attachments/assets/55752ad7-95ca-4b55-89d5-f1be49cb75c4 "Project architecture")
 
 ### Organization
 #### Communication
