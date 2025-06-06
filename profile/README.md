@@ -206,7 +206,7 @@ For code optimization and code review we used SonarQube. This way we were able t
 ## 3. User Walkthrough
 ### User Manual
 For a complete tour of our app and tips on how to use it please refer to our User Manual accessible here:
-https://github.com/FootlyIQ/.github/blob/main/UserManual.docx
+https://github.com/FootlyIQ/.github/blob/main/UserManual_FootlyIQ.pdf
 
 ### Disclaimer❗
 If you encounter problems when looking into clubs/players, especially in the Teams and Players section where search functionality is present. **DO NOT WORRY**. It's not an unexpected error. This is because our current plan with the api provider allows a certain number of calls per minute, and searching is pretty source intensive. Given that we spent over 60€ on the API alone, we didn't opt for further upgrades. So just wait a few moments and try again :) Sincerely, FootlyIQ team.    
