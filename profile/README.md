@@ -87,6 +87,8 @@ The application follows a modular and scalable architecture with clearly separat
 - **Data Lake (AWS S3):**  
   For unstructured or large datasets (e.g., parquet files containing data gained from machine learning), the system uses **Amazon S3** as a data lake. Retrieval operations are managed using the **boto3** library in Python.
 
+<img src="https://github.com/user-attachments/assets/55752ad7-95ca-4b55-89d5-f1be49cb75c4" alt="Project architecture" width="600"/>
+
 ### Organization
 #### Communication
 All communication within our team was conducted via a Discord server, except for the communication with the professor, which was conducted via MS Teams. We also conducted all group meetings and all remote work via the Discord server, where we helped each other with the screen sharing function.
