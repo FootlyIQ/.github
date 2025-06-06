@@ -26,6 +26,7 @@ FootlyIQ is a full-stack web application built by our team as a part of our fina
     - [ML pipeline](#ml-pipeline)
 3. [User Walkthrough](#3-user-walkthrough)
     - [User Manual](#user-manual)
+    - [Activity Diagram for use of fantasy section](#activity-diagram-for-use-of-fantasy-section)
 4. [Presentation](#4-presentation)
 
 ## 1. Project Intro
@@ -139,4 +140,7 @@ To offer users intelligent stats and visualizations we used pipeline with these 
 ### User Manual
 For a complete tour of our app and tips on how to use it please refer to our User Manual accessible here:
 https://github.com/FootlyIQ/.github/blob/main/UserManual.docx
+
+### Activity Diagram for use of fantasy section
+<img src="https://github.com/user-attachments/assets/18205dad-1011-40d3-a309-330451e6d5e4" alt="Activity diagram" width="600"/>
 
