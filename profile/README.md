@@ -214,4 +214,11 @@ Here is one example of such case:
 
 <img src="https://github.com/user-attachments/assets/3184f9dd-3f0c-48df-a5e7-0bacc142b529" alt="Activity diagram" width="600"/>
 
+---
+
+## 4. Presentation
+To look at the powerpoint presentation please follow this link:
+
+https://univerzamb-my.sharepoint.com/:p:/g/personal/oliver_kunovski_student_um_si/EYP928-E0oZOm-EUh7Wj5-gBWz6GnkAZxhGxOlKYtpkJ2Q?e=GhbDbD
+
 
