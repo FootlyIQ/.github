@@ -25,9 +25,11 @@ FootlyIQ is a full-stack web application built by our team as a part of our fina
     - [Testing](#testing)
     - [ML pipeline](#ml-pipeline)
     - [Code Review](#code-review)
+    - [Use Case Diagram](#use-case-diagram)
+    - [Activity Diagram for use of fantasy section](#activity-diagram-for-use-of-fantasy-section)
 3. [User Walkthrough](#3-user-walkthrough)
     - [User Manual](#user-manual)
-    - [Activity Diagram for use of fantasy section](#activity-diagram-for-use-of-fantasy-section)
+    - [Disclaimer](#disclaimer)
 4. [Presentation](#4-presentation)
 
 ## 1. Project Intro
@@ -66,33 +68,47 @@ Application backend was made with Python, using the Flask framework, which helpe
 #### Deployment
 For deployment we made a project on Render. This allowed us to deploy our project straight from the github repository.
 
-# Project Architecture
+<img src="https://github.com/user-attachments/assets/23b6d9c6-1a63-4a01-b142-a1e935389eee" alt="Render project" width="750"/>
+
+
+### Project Architecture
 
 The application follows a modular and scalable architecture with distinct separation of concerns across the frontend, backend, and external services:
 
-- ## Frontend (Client Side)
+- #### Frontend (Client Side)
   - Built using **React** to deliver a dynamic and responsive user experience.
   - Communicates with the backend via HTTP requests, primarily through RESTful APIs.
 
-- ## Backend (Flask API)
+- #### Backend (Flask API)
   - Developed with **Flask (Python)**, acting as the central hub for handling frontend requests.
   - Manages data flow between the client, external services, and internal storage systems.
 
-- ## Microservices (Node.js + Express)
+- #### Microservices (Node.js + Express)
   - Two microservices implemented in **Node.js** using **Express**:
     - **Matches Service**: Fetches real-time match data from the **football-data.org API**.
     - **Odds Service**: Retrieves betting odds from the **Odds API**.
 
-- ## Home Server Proxy Service (Python)
+- #### Home Server Proxy Service (Python)
   - A lightweight local proxy running 24/7 on a home server, written in **Python**.
   - Connects to the **Fantasy Premier League (FPL) API**, preprocesses or aggregates FPL data, and serves it to the Flask backend as needed.
 
-- ## Firebase Firestore Database Structure
-  The application leverages **Google Firebase Firestore**, a scalable NoSQL database, for storing structured, real-time data.
+<img src="https://github.com/user-attachments/assets/55752ad7-95ca-4b55-89d5-f1be49cb75c4" alt="Project architecture" width="750"/>
 
-  - ### Collections
+### Organization
+#### Communication
+All communication within our team was conducted via a Discord server, except for the communication with the professor, which was conducted via MS Teams. We also conducted all group meetings and all remote work via the Discord server, where we helped each other with the screen sharing function.
+#### Management and division of labor
+For project managment we chose the SCRUM method, which is based on working in sprints. During the development we had 4 1-week long sprints. The project thus lasted from **07.05.2025 to 04.06.2025**. Before starting a new sprint we created new tasks, which we had to do in the next sprint.
+For task assignment and keeping track we used Jira. We used a kanban board with backlog to keep track of our work.  
 
-    - #### `match_vote_counts`
+<img src="https://github.com/user-attachments/assets/e64cbca9-df43-40e1-b4d1-e961f3b14128" alt="Sprint board" width="600"/>
+
+### Data architecture
+#### Firebase Firestore Database Structure
+The application leverages **Google Firebase Firestore**, a scalable NoSQL database, for storing structured, real-time data.
+  - #### Collections
+
+    - ##### `match_vote_counts`
       - **Purpose**: Stores aggregated vote counts for matches.
       - **Fields**:
         - `away`: Number of votes for the away team (e.g., 1).
@@ -100,7 +116,7 @@ The application follows a modular and scalable architecture with distinct separa
         - `home`: Number of votes for the home team (e.g., 3).
       - **Example Document ID**: "524120".
 
-    - #### `match_votes`
+    - ##### `match_votes`
       - **Purpose**: Stores individual votes for matches.
       - **Fields**:
         - `matchId`: String identifier for the match.
@@ -108,7 +124,7 @@ The application follows a modular and scalable architecture with distinct separa
         - `user_id`: String identifier for the user.
         - `vote`: The vote value (e.g., "1").
 
-    - #### `user_favorites`
+    - ##### `user_favorites`
       - **Purpose**: Stores user-specific favorite data, such as favorite clubs and matches.
       - **Nested Structure**:
         - `clubs`:
@@ -122,7 +138,7 @@ The application follows a modular and scalable architecture with distinct separa
           - `competition`: Competition name.
           - `addedAt`: Timestamp of when the match was added.
 
-    - #### `users`
+    - ##### `users`
       - **Purpose**: Stores user data.
       - **Fields**:
         - `createdAt`: Timestamp of user creation.
@@ -130,29 +146,14 @@ The application follows a modular and scalable architecture with distinct separa
         - `name`: User's name.
         - `role`: User's role (e.g., "user").
 
-    - #### `votes`
+    - ##### `votes`
       - **Purpose**: Stores users' voting data.
       - **Fields**:
         - `timestamp`: Timestamp of user's vote.
         - `user_id`: User's email address.
         - `vote`: User's vote (1, 2, or X).
 
-- ## Data Lake (AWS S3)
-  - Used for storing unstructured or large datasets (e.g., parquet files from machine learning processes).
-  - Data retrieval is managed using the **boto3** library in Python.
-
-![Project Architecture](https://github.com/user-attachments/assets/55752ad7-95ca-4b55-89d5-f1be49cb75c4 "Project architecture")
-
-### Organization
-#### Communication
-All communication within our team was conducted via a Discord server, except for the communication with the professor, which was conducted via MS Teams. We also conducted all group meetings and all remote work via the Discord server, where we helped each other with the screen sharing function.
-#### Management and division of labor
-For project managment we chose the SCRUM method, which is based on working in sprints. During the development we had 4 1-week long sprints. The project thus lasted from **07.05.2025 to 04.06.2025**. Before starting a new sprint we created new tasks, which we had to do in the next sprint.
-For task assignment and keeping track we used Jira. We used a kanban board with backlog to keep track of our work.  
-
-<img src="https://github.com/user-attachments/assets/e64cbca9-df43-40e1-b4d1-e961f3b14128" alt="Sprint board" width="600"/>
-
-### Data architecture
+#### S3 Data Lake
 In the **Data Lake** files are organized by the medallion architecture principles. Therefore datasets used for machine learning **and** datasets containing data from ML used in the app are organized into 3 zones:
 - **Bronze** containing raw datasets like stories.parquet
 - **Silver** containing filtred/reduced datasets primarily used for machine learning purposes like passes_crosses.parquet
@@ -193,7 +194,12 @@ For code optimization and code review we used SonarQube. This way we were able t
 - Reliability
 - Security
 
-All of these got an A score.
+### Use Case Diagram
+
+<img src="https://github.com/user-attachments/assets/89b8803c-d4a8-409d-92f2-218a75dc0776" alt="Activity diagram" width="600"/>
+
+### Activity Diagram for use of fantasy section
+<img src="https://github.com/user-attachments/assets/18205dad-1011-40d3-a309-330451e6d5e4" alt="Activity diagram" width="600"/>
 
 ---
 
@@ -202,6 +208,10 @@ All of these got an A score.
 For a complete tour of our app and tips on how to use it please refer to our User Manual accessible here:
 https://github.com/FootlyIQ/.github/blob/main/UserManual.docx
 
-### Activity Diagram for use of fantasy section
-<img src="https://github.com/user-attachments/assets/18205dad-1011-40d3-a309-330451e6d5e4" alt="Activity diagram" width="600"/>
+### Disclaimer❗
+If you encounter problems when looking into clubs/players, especially in the Teams and Players section where search functionality is present. **DO NOT WORRY**. It's not an unexpected error. This is because our current plan with the api provider allows a certain number of calls per minute, and searching is pretty source intensive. Given that we spent over 60€ on the API alone, we didn't opt for further upgrades. So just wait a few moments and try again :) Sincerely, FootlyIQ team.    
+Here is one example of such case:
+
+<img src="https://github.com/user-attachments/assets/3184f9dd-3f0c-48df-a5e7-0bacc142b529" alt="Activity diagram" width="600"/>
+
 
