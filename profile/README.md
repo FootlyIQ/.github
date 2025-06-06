@@ -138,5 +138,5 @@ To offer users intelligent stats and visualizations we used pipeline with these 
 ## 3. User Walkthrough
 ### User Manual
 For a complete tour of our app and tips on how to use it please refer to our User Manual accessible here:
-
+https://github.com/FootlyIQ/.github/blob/main/UserManual.docx
 
