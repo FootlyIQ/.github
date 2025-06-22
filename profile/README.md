@@ -11,6 +11,8 @@ FootlyIQ is a full-stack web application built by our team as a part of our fina
 
 🌍 **Live App**: [https://frontend-i3fb.onrender.com](https://frontend-i3fb.onrender.com)
 
+**Disclaimer**: Due to high API and hosting costs, the deployed version is not functioning properly anymore. To see videos of the properly functioning web app head over to [presentation section](#4-presentation) and view the powerpoint presentation.
+
 ---
 
 ## List of Contents
@@ -221,4 +223,4 @@ To look at the powerpoint presentation please follow this link:
 
 https://univerzamb-my.sharepoint.com/:p:/g/personal/oliver_kunovski_student_um_si/EYP928-E0oZOm-EUh7Wj5-gBWz6GnkAZxhGxOlKYtpkJ2Q?e=GhbDbD
 
-
+Videos of the working web app can be found at the end of presentation.
